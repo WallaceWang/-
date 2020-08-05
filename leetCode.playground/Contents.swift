@@ -313,3 +313,29 @@ class Solution {
         return mergeList.next
     }
 }
+
+/// 盛最多水的容器
+class Solution11 {
+    func maxArea(_ height: [Int]) -> Int {
+        var p = 0
+        var q = height.count - 1
+        var maxArea = 0
+        while p < q  {
+            let area = min(height[p], height[q]) * (q - p)
+            if area > maxArea {
+                maxArea = area
+            }
+            if height[p] <= height[q] {
+                p += 1
+            } else {
+                q -= 1
+            }
+        }
+        return maxArea
+    }
+}
+
+let s11 = Solution11()
+let area1 = s11.maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])
+let area2 = s11.maxArea([2,3,4,5,18,17,6])
+
