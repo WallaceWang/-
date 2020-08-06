@@ -210,3 +210,65 @@ var b2 = [2, 1]
 //b.quickSortC(start: 0, end: 6)
 let maxK = b.findMax(with: 5, start: 0, end: 6)
 debugPrint("b: \(b)")
+
+
+/// 坏字符
+func bm(_ aStr: String, _ bStr: String) -> Int {
+    let a: [Character] = Array(aStr)
+    let b: [Character] = Array(bStr)
+    var map: [Character: Int] = [:]
+    // 存入哈希表, 是为了当比较字符不相等时，省略前面所有字符的挨个比较
+    for (index, c) in b.enumerated() {
+        map[c] = index
+    }
+    let aCount = a.count
+    let bCount = b.count
+    var i = bCount - 1
+    var j = i
+    while i <= aCount - bCount  {
+        while j >= 0 {
+            if a[i] != b[j] {
+                break
+            }
+            j -= 1
+            i -= 1
+        }
+        if j == -1 {
+            return i
+        } else {
+            let si = j
+            var xi = -1
+            let ac = a[i]
+            if let p = map[ac] {
+                xi = p
+            }
+            i += si - xi
+        }
+        
+    }
+    
+    return -1
+}
+
+/// 好后缀
+func generateGS(_ bStr: String) {
+    let b: [Character] = Array(bStr)
+    var suffix: [Int: Int] = [:]
+    var prefix: [Int: Bool] = [:]
+    for i in 0 ..< b.count {
+        suffix[i] = -1
+        prefix[i] = false
+    }
+    for i in 0 ..< b.count - 1 {
+        var j = i
+        var k = 0
+        while j >= 0 && b[j] == b[b.count - 1 - k] {
+            j -= 1
+            k += 1
+            suffix[k] = j + 1
+        }
+        if j == -1 {
+            prefix[k] = true
+        }
+    }
+}
