@@ -135,3 +135,30 @@ class Solution11 {
 let s11 = Solution11()
 let area1 = s11.maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])
 let area2 = s11.maxArea([2,3,4,5,18,17,6])
+
+
+/// 三数之和
+class Solution15 {
+    func threeSum(_ nums: [Int]) -> [[Int]] {
+        var result:[[Int]] = []
+        var i = 0
+        while i <= nums.count - 3 {
+            var j = i + 1
+            while j <= nums.count - 2 {
+                var k = j + 1
+                while k <= nums.count - 1 {
+                    if nums[i] + nums[j] + nums[k] == 0 {
+                        result.append([nums[i], nums[j], nums[k]])
+                    }
+                    k += 1
+                }
+                j += 1
+            }
+           i += 1
+        }
+        return result
+    }
+}
+
+let s15 = Solution15()
+let result = s15.threeSum([-1, 0, 1, 2, -1, -4])
